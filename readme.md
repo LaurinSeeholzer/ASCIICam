@@ -3,6 +3,8 @@
 **ASCIICam** is a Java application that captures live video from your webcam and transforms it into real-time ASCII art, displayed directly in your terminal.  
 Turn your terminal into a retro art gallery!
 
+<img width="1280" height="720" alt="screenshot" src="https://github.com/user-attachments/assets/eab943ee-ea89-4afa-a667-d4fcabfa5847" />
+
 ---
 
 ## ✨ Features
@@ -75,9 +77,13 @@ gradle run
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Demo
 
-<!-- Insert your screenshots here! -->
+
+
+https://github.com/user-attachments/assets/ab348560-0965-423b-b971-60404114696c
+
+
 
 ---
 
