@@ -19,30 +19,43 @@ public class App {
         }
         webcam.open();
 
-        int width = 150;
-        int height = 75;
+        int width = 100;
+        int height = 50;
 
         while (true) {
             BufferedImage frame = webcam.getImage();
             if (frame == null) continue;
             BufferedImage resized = resizeImage(frame, width, height);
+
+            int min = 255;
+            int max = 0;
+            for (int y = 0; y < resized.getHeight(); y++) {
+                for (int x = 0; x < resized.getWidth(); x++) {
+                    Color c = new Color(resized.getRGB(x, y));
+                    int avg = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+                    if (avg < min) min = avg;
+                    if (avg > max) max = avg;
+                }
+            }
+            int range = Math.max(1, max - min);
+
             StringBuilder sb = new StringBuilder();
 
             for (int y = 0; y < resized.getHeight(); y++) {
                 for (int x = 0; x < resized.getWidth(); x++) {
                     Color c = new Color(resized.getRGB(x, y));
                     int avg = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-                    int idx = avg * (CHARACTERS.length() - 1) / 255;
+                    int idx = (max - avg) * (CHARACTERS.length() - 1) / range;
                     sb.append(CHARACTERS.charAt(idx)).append(CHARACTERS.charAt(idx));
                 }
                 sb.append("\n");
             }
 
-            System.out.print("\u001b[H\u001b[2J"); // clear console
+            System.out.print("\u001b[H\u001b[2J");
             System.out.flush();
             System.out.println(sb.toString());
 
-            Thread.sleep(100); // ~10 fps
+            Thread.sleep(200);
         }
     }
 
